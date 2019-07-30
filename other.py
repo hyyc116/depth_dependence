@@ -426,9 +426,101 @@ def tab_1_2():
 
     f.close()
 
+def tab_3():
+
+    data = load_data('all_00_17_everything.csv')
+    uts,levels,depths,dependences,pub_years,fields = zip(*data)
+
+    levels = [int(level) for level in levels]
+
+    depths = [float(depth) for depth in depths]
+
+    dependences = [float(dependence) for dependence in dependences]
 
 
+    absolute_depths = np.array(depths)*np.array(levels)
+    absolute_dependences = np.array(dependences)*np.array(levels)
 
+    field_dict = {}
+
+    field_dict['1'] = 'SSH'
+    field_dict['2'] = 'BHS'
+    field_dict['3'] = 'PSE'
+    field_dict['4'] = 'LES'
+    field_dict['5'] = 'MCS'
+
+    sorted_fields =  ['2','4','5','3','1']
+
+    field_attr_list = defaultdict(lambda:defaultdict(list))
+
+    for i,field in enumerate(fields):
+
+        level = levels[i]
+        depth = depths[i]
+        abs_depth = depths[i]
+
+        dependence = dependences[i]
+        abs_dependence = absolute_dependences[i]
+
+        field_attr_list[field]['level'].append(level)
+        field_attr_list[field]['depth'].append(depth)
+
+        field_attr_list[field]['dependence'].append(dependence)
+
+        field_attr_list[field]['abs_depth'].append(abs_depth)
+
+        field_attr_list[field]['abs_dependence'].append(abs_dependence)
+
+
+    # lines = ['| |'+'|'.join(['No. of Pub','Mean Level','Mean Level','Mean Level','Mean Level','Mean Level','Mean Level','Mean Level','Mean Level','Mean Level','Mean Level','Mean Level','Mean Level','Mean Level','Mean Level','Mean Level'])]
+
+    datas = []
+    datas.append([' ','No. of Pub','Mean Level','Median Level','Max. Level','Mean absolute depth','Median absolute depth','Max. absolute depth','Mean relative depth','Median relative depth','Max. relative depth','Mean absolute dependence','Median absolute dependence','Max. absolute dependence','Mean relvative dependence','Median relvative dependence','Max. relvative dependence'])
+    for field in sorted_fields:
+
+        field_name = field_dict[field]
+
+        levels = field_attr_list[field]['level']
+        depths = field_attr_list[field]['depth']
+        dependences = field_attr_list[field]['dependence']
+
+        abs_depths = field_attr_list[field]['abs_depth']
+        abs_dependences = field_attr_list[field]['abs_dependence']
+
+        num = len(levels)
+        print num
+
+        mean_level,median_level,max_level = np.mean(levels),np.median(levels),np.max(levels)
+        mean_depth,median_depth,max_depth = np.mean(depths),np.median(depths),np.max(depths)
+        mean_dependence,median_dependence,max_dependence = np.mean(dependences),np.median(dependences),np.max(dependences)
+
+        mean_abs_depth,median_abs_depth,max_abs_depth = np.mean(abs_depths),np.median(abs_depths),np.max(abs_depths)
+        mean_abs_dependence,median_abs_dependence,max_abs_dependence = np.mean(abs_dependences),np.median(abs_dependences),np.max(abs_dependences)
+
+        datas.append([field_name,num,mean_level,median_level,max_level,mean_abs_depth,median_abs_depth,max_abs_depth,mean_depth,median_depth,max_depth,mean_abs_dependence,median_abs_dependence,max_abs_dependence,mean_dependence,median_dependence,max_dependence])
+
+
+    data = np.array(datas).transpose()
+
+    # print data
+
+    lines = ['|'+'|'.join(data[0])+'|']
+
+    lines.append('|'+'|'.join([':---:']*len(data[0]))+"|")
+
+    for line in data[1:]:
+
+        lines.append('|'+line[0]+'|'+'|'.join(['{:.2f}'.format(float(l)) for l in line[1:]])+'|')
+
+    # print lines
+
+    f = open('README.md','a')
+
+    f.write('#### TABLE 3\n')
+
+    f.write('\n'.join(lines)+'\n')
+
+    f.close()
 
 
 
@@ -440,3 +532,5 @@ if __name__ == '__main__':
     # fig5()
 
     tab_1_2()
+
+    tab_3()
