@@ -390,28 +390,39 @@ def tab_1_2():
     lines = ['| |'+'|'.join(labels)+'|']
     lines.append('|'+"|".join([':---:']*(len(labels)+1))+'|')
 
+    tab2 = ['| |'+'|'.join(labels)+'|']
+    tab2.append('|'+"|".join([':---:']*(len(labels)+1))+'|')
+
     for i,data1 in enumerate(datas):
         line = []
+        line2 = []
         for j,data2 in enumerate(datas):
 
             if j<i:
                 line.append(' ')
+                line2.append(' ')
                 continue
 
 
             # print labels[i],';',labels[j],';',pearsonr(data1,data2)
 
             line.append('{:.2f}'.format(pearsonr(data1,data2)[0]))
+            line2.append('{:.2f}'.format(spearmanr(data1,data2)[0]))
 
         lines.append(labels[i]+'|'+'|'.join(line)+"|")
+        tab2.append(labels[i]+'|'+'|'.join(line2)+"|")
 
     print('\n'.join(lines))
 
     f = open('README.md','w')
 
-    f.write('=====TABLE 1\n')
+    f.write('#### TABLE 1\n')
 
     f.write('\n'.join(lines)+'\n')
+
+    f.write('#### TABLE 2\n')
+
+    f.write('\n'.join(tab2)+'\n')
 
     f.close()
 
