@@ -1,4 +1,4 @@
-=====TABLE 1
+### TABLE 1
 | |level|absolute depth|relative depth|absolute dependence|relative dependence|
 |:---:|:---:|:---:|:---:|:---:|:---:|
 level|1.00|0.75|0.15|0.54|-0.08|
