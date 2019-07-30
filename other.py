@@ -60,13 +60,20 @@ def fig3():
 
     dependences = [float(dependence) for dependence in dependences]
 
+
+    absolute_depths = np.array(depths)*np.array(levels)
+    absolute_dependences = np.array(dependences)*np.array(levels)
+
     # plot_dis_within_one(levels,depths,dependences)
 
     level_xs,level_ys = count_list(levels)
+    ab_depth_xs, ab_depth_ys = count_list(absolute_depths)
     depth_xs, depth_ys = count_list(depths)
+    ab_dependence_xs, ab_dependence_ys = count_list(absolute_dependences)
     dependence_xs, dependence_ys = count_list(dependences)
-    plt.figure()
-    fig,axes = plt.subplots(3,1,figsize=(6,12))
+
+    # plt.figure()
+    fig,axes = plt.subplots(5,1,figsize=(4,15))
     ax1 = axes[0]
     l1, = ax1.plot(level_xs,level_ys,label='level')
     ax1.set_ylabel('cumulative probability')
@@ -78,19 +85,34 @@ def fig3():
 
     ax2 = axes[1]
 
-    ax2.plot(depth_xs,depth_ys,label='depth')
-    ax2.set_xlabel('depth\n(b)')
+    ax2.plot(ab_depth_xs,ab_depth_ys,label='depth')
+    ax2.set_xlabel('absolute depth\n(b)')
     ax2.set_ylabel('cumulative probability')
-    ax2.set_xlim(-0.5,16)
+    ax2.set_xscale('log')
+    # ax2.set_xlim(-0.5,16)
+
+    ax3 = axes[2]
+
+    ax3.plot(depth_xs,depth_ys,label='depth')
+    ax3.set_xlabel('relvative depth\n(c)')
+    ax3.set_ylabel('cumulative probability')
+    ax3.set_xlim(-0.5,16)
     # plot_field_dis(depths,fields,'level',  False,ax=ax2)
 
 
+    ax4=axes[3]
+    ax4.plot(ab_dependence_xs,ab_dependence_ys,label='dependence')
+    ax4.set_xlabel('absolute dependence\n(d)')
+    ax4.set_ylabel('cumulative probability')
+    ax4.set_xscale('log')
+    # ax4.set_xlim(-0.5,16)
 
-    ax3=axes[2]
-    ax3.plot(dependence_xs,dependence_ys,label='dependence')
-    ax3.set_xlabel('dependence\n(c)')
-    ax3.set_ylabel('cumulative probability')
-    ax3.set_xlim(-0.5,16)
+
+    ax5=axes[4]
+    ax5.plot(dependence_xs,dependence_ys,label='dependence')
+    ax5.set_xlabel('relative dependence\n(e)')
+    ax5.set_ylabel('cumulative probability')
+    # ax5.set_xlim(-0.5,16)
     # plot_field_dis(levels,fields,'level',True,ax=ax1)
     # plot_field_dis(dependences,fields,'dependence',False,ax=ax3)
 
@@ -178,6 +200,19 @@ def bin_dependence(dependence):
         return 3
 
 
+def bin_abs_depth(depth):
+
+    if depth<10:
+        return 0
+    elif depth<100:
+        return 1
+    elif depth <1000:
+        return 2
+    elif depth <10000:
+        return 3
+    else:
+        return 4
+
 def fig4():
 
     data = load_data('all_00_17_everything.csv')
@@ -190,15 +225,31 @@ def fig4():
 
     dependences = [float(dependence) for dependence in dependences]
 
-    fig,axes = plt.subplots(3,1,figsize=(5,10))
+    absolute_depths = np.array(depths)*np.array(levels)
+    absolute_dependences = np.array(dependences)*np.array(levels)
+
+    fig,axes = plt.subplots(3,2,figsize=(10,12))
     level_labels = ['[0.1k-0.2k)','[0.2k-0.5k)','[0.5k-1k)','[1k-2k)','2k+']
     depth_labels = ['[0-2)','[2-5)','[5-10)','10+']
-    plot_box_relations([bin_levels(level) for level in levels],depths,'level','depth\n(a)',level_labels,ax=axes[0])
-    axes[0].set_xlim(-0.5,16)
-    plot_box_relations([bin_levels(level) for level in levels],dependences,'level','dependence\n(b)',level_labels,ax=axes[1])
-    axes[1].set_xlim(-0.5,16)
-    plot_box_relations([bin_dependence(depth) for depth in  depths],dependences,'depth','dependence\n(c)',depth_labels,ax=axes[2])
-    axes[2].set_xlim(-0.5,16)
+    abs_depth_labels = ['[$10^0$,$10^1$)','[$10^1$,$10^2$)','[$10^2$,$10^3$)','[$10^3$,$10^4$)','$10^4$+']
+    plot_box_relations([bin_levels(level) for level in levels],absolute_depths,'level','absolute depth\n(a)',level_labels,ax=axes[0,0])
+    axes[0,0].set_xscale('log')
+
+    plot_box_relations([bin_levels(level) for level in levels],depths,'level','relative depth\n(b)',level_labels,ax=axes[0,1])
+    axes[0,1].set_xlim(-0.5,16)
+
+    plot_box_relations([bin_levels(level) for level in levels],absolute_dependences,'level','absolute dependence\n(c)',level_labels,ax=axes[1,0])
+    axes[1,0].set_xscale('log')
+
+    plot_box_relations([bin_levels(level) for level in levels],dependences,'level','relative dependence\n(d)',level_labels,ax=axes[1,1])
+    axes[1,1].set_xlim(-0.5,16)
+
+    plot_box_relations([bin_dependence(depth) for depth in  depths],dependences,'relative depth','relative dependence\n(e)',depth_labels,ax=axes[2,0])
+    axes[2,0].set_xlim(-0.5,16)
+
+
+    plot_box_relations([bin_abs_depth(depth) for depth in  absolute_depths],absolute_dependences,'abs depth','absolute dependence\n(f)',abs_depth_labels,ax=axes[2,1])
+    axes[2,1].set_xscale('log')
 
 
     plt.tight_layout()
@@ -296,22 +347,85 @@ def fig5():
 
     dependences = [float(dependence) for dependence in dependences]
 
-    fig,axes = plt.subplots(3,1,figsize=(5,10))
-    plot_field_dis(levels,fields,'level',True,ax=axes[0])
-    plot_field_dis(depths,fields,'depth',False,ax=axes[1])
-    axes[1].set_xlim(-0.5,16)
 
-    plot_field_dis(dependences,fields,'dependence',False,ax=axes[2])
+    absolute_depths = np.array(depths)*np.array(levels)
+    absolute_dependences = np.array(dependences)*np.array(levels)
+
+    fig,axes = plt.subplots(5,1,figsize=(4,15))
+    plot_field_dis(levels,fields,'level\n(a)',True,ax=axes[0])
+    plot_field_dis(absolute_depths,fields,'absolute depth\n(b)',False,ax=axes[1])
+    axes[1].set_xscale('log')
+    plot_field_dis(depths,fields,'relative depth\n(c)',False,ax=axes[2])
     axes[2].set_xlim(-0.5,16)
+
+    plot_field_dis(absolute_dependences,fields,'absolute dependence\n(d)',False,ax=axes[3])
+    axes[3].set_xscale('log')
+    plot_field_dis(dependences,fields,'relative dependence\n(e)',False,ax=axes[4])
+    axes[4].set_xlim(-0.5,16)
 
     plt.tight_layout()
     plt.savefig('fig/fig5.jpg',dpi=300)
+
+
+def tab_1_2():
+
+    data = load_data('all_00_17_everything.csv')
+
+    uts,levels,depths,dependences,pub_years,fields = zip(*data)
+
+    levels = [int(level) for level in levels]
+
+    depths = [float(depth) for depth in depths]
+
+    dependences = [float(dependence) for dependence in dependences]
+
+    absolute_depths = np.array(depths)*np.array(levels)
+    absolute_dependences = np.array(dependences)*np.array(levels)
+
+
+    labels = ['level','absolute depth','relative depth','absolute dependence','relative dependence']
+
+    datas = [levels,absolute_depths,depths,absolute_dependences,dependences]
+
+    lines = ['| |'+'|'.join(labels)+'|']
+    lines.append('|'+"|".join([':---:']*(len(labels)+1))+'|')
+
+    for i,data1 in enumerate(datas):
+        line = []
+        for j,data2 in enumerate(datas):
+
+            if j<i:
+                line.append(' ')
+                continue
+
+
+            # print labels[i],';',labels[j],';',pearsonr(data1,data2)
+
+            line.append('{:.2f}'.format(pearsonr(data1,data2)[0]))
+
+        lines.append(labels[i]+'|'+'|'.join(line)+"|")
+
+    print('\n'.join(lines))
+
+    f = open('README.md','w')
+
+    f.write('=====TABLE 1\n')
+
+    f.write('\n'.join(lines)+'\n')
+
+    f.close()
+
+
+
+
 
 
 
 if __name__ == '__main__':
     # fig3()
 
-    fig4()
+    # fig4()
 
     # fig5()
+
+    tab_1_2()
