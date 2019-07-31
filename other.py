@@ -73,17 +73,18 @@ def fig3():
     dependence_xs, dependence_ys = count_list(dependences)
 
     # plt.figure()
-    fig,axes = plt.subplots(5,1,figsize=(4,15))
-    ax1 = axes[0]
+    fig,axes = plt.subplots(3,2,figsize=(8,9))
+    ax1 = axes[0,0]
     l1, = ax1.plot(level_xs,level_ys,label='level')
     ax1.set_ylabel('cumulative probability')
     ax1.set_xlabel('level\n(a)')
     ax1.set_xscale('log')
     # plot_field_dis(levels,fields,'level',True,ax=ax1)
 
+    axes[0,1].axis('off')
     # ax1.set_ylim(0,20)
 
-    ax2 = axes[1]
+    ax2 = axes[1,0]
 
     ax2.plot(ab_depth_xs,ab_depth_ys,label='depth')
     ax2.set_xlabel('absolute depth\n(b)')
@@ -91,16 +92,16 @@ def fig3():
     ax2.set_xscale('log')
     # ax2.set_xlim(-0.5,16)
 
-    ax3 = axes[2]
+    ax3 = axes[1,1]
 
     ax3.plot(depth_xs,depth_ys,label='depth')
-    ax3.set_xlabel('relvative depth\n(c)')
+    ax3.set_xlabel('relative depth\n(c)')
     ax3.set_ylabel('cumulative probability')
     ax3.set_xlim(-0.5,16)
     # plot_field_dis(depths,fields,'level',  False,ax=ax2)
 
 
-    ax4=axes[3]
+    ax4=axes[2,0]
     ax4.plot(ab_dependence_xs,ab_dependence_ys,label='dependence')
     ax4.set_xlabel('absolute dependence\n(d)')
     ax4.set_ylabel('cumulative probability')
@@ -108,11 +109,11 @@ def fig3():
     # ax4.set_xlim(-0.5,16)
 
 
-    ax5=axes[4]
+    ax5=axes[2,1]
     ax5.plot(dependence_xs,dependence_ys,label='dependence')
     ax5.set_xlabel('relative dependence\n(e)')
     ax5.set_ylabel('cumulative probability')
-    # ax5.set_xlim(-0.5,16)
+    ax5.set_xlim(-0.5,16)
     # plot_field_dis(levels,fields,'level',True,ax=ax1)
     # plot_field_dis(dependences,fields,'dependence',False,ax=ax3)
 
@@ -150,7 +151,7 @@ def plot_box_relations(bin_levels,depths,l1,l2,labels,xlog=False,ax=None):
 
         xs,ys = cdf_list(b_depths)
 
-        print bin_level,labels
+        # print bin_level,labels
         ax.plot(xs,ys,label='{:}:{:}'.format(l1,labels[bin_level]))
 
 
@@ -228,8 +229,8 @@ def fig4():
     absolute_depths = np.array(depths)*np.array(levels)
     absolute_dependences = np.array(dependences)*np.array(levels)
 
-    fig,axes = plt.subplots(3,2,figsize=(10,12))
-    level_labels = ['[0.1k-0.2k)','[0.2k-0.5k)','[0.5k-1k)','[1k-2k)','2k+']
+    fig,axes = plt.subplots(3,2,figsize=(14,15))
+    level_labels = ['[100-200)','[200-500)','[500-1000)','[1000-2000)','2000+']
     depth_labels = ['[0-2)','[2-5)','[5-10)','10+']
     abs_depth_labels = ['[$10^0$,$10^1$)','[$10^1$,$10^2$)','[$10^2$,$10^3$)','[$10^3$,$10^4$)','$10^4$+']
     plot_box_relations([bin_levels(level) for level in levels],absolute_depths,'level','absolute depth\n(a)',level_labels,ax=axes[0,0])
@@ -253,12 +254,12 @@ def fig4():
 
 
     plt.tight_layout()
-    plt.savefig('fig/fig4.jpg',dpi=300)
+    plt.savefig('fig/fig4.jpg',dpi=600)
 
 def plot_field_dis(attrs,fields,name,log=True,ax=None):
 
     logging.info('plot field distribution ...')
-    print name,len(attrs)
+    # print name,len(attrs)
     field_nums = Counter(fields)
     field_attrs = defaultdict(list)
 
@@ -287,7 +288,7 @@ def plot_field_dis(attrs,fields,name,log=True,ax=None):
         num = len(attrs)
 
 
-        print field_dict[field],field_nums[field],np.mean(attrs),np.median(attrs),np.min(attrs),num
+        # print field_dict[field],field_nums[field],np.mean(attrs),np.median(attrs),np.min(attrs),num
 
         attr_counter = Counter(attrs)
         xs = []
@@ -298,8 +299,8 @@ def plot_field_dis(attrs,fields,name,log=True,ax=None):
             ys.append(has/float(num))
             has+=attr_counter[attr]
 
-            if name=='level' and attr==200:
-                print has,has/float(num)
+            # if name=='level' and attr==200:
+                # print has,has/float(num)
 
         field_xys[str(field)] = [xs,ys]
 
@@ -351,20 +352,23 @@ def fig5():
     absolute_depths = np.array(depths)*np.array(levels)
     absolute_dependences = np.array(dependences)*np.array(levels)
 
-    fig,axes = plt.subplots(5,1,figsize=(4,15))
-    plot_field_dis(levels,fields,'level\n(a)',True,ax=axes[0])
-    plot_field_dis(absolute_depths,fields,'absolute depth\n(b)',False,ax=axes[1])
-    axes[1].set_xscale('log')
-    plot_field_dis(depths,fields,'relative depth\n(c)',False,ax=axes[2])
-    axes[2].set_xlim(-0.5,16)
+    fig,axes = plt.subplots(3,2,figsize=(10,12))
+    plot_field_dis(levels,fields,'level\n(a)',True,ax=axes[0,0])
 
-    plot_field_dis(absolute_dependences,fields,'absolute dependence\n(d)',False,ax=axes[3])
-    axes[3].set_xscale('log')
-    plot_field_dis(dependences,fields,'relative dependence\n(e)',False,ax=axes[4])
-    axes[4].set_xlim(-0.5,16)
+    axes[0,1].axis('off')
+
+    plot_field_dis(absolute_depths,fields,'absolute depth\n(b)',False,ax=axes[1,0])
+    axes[1,0].set_xscale('log')
+    plot_field_dis(depths,fields,'relative depth\n(c)',False,ax=axes[1,1])
+    axes[1,1].set_xlim(-0.5,16)
+
+    plot_field_dis(absolute_dependences,fields,'absolute dependence\n(d)',False,ax=axes[2,0])
+    axes[2,0].set_xscale('log')
+    plot_field_dis(dependences,fields,'relative dependence\n(e)',False,ax=axes[2,1])
+    axes[2,1].set_xlim(-0.5,16)
 
     plt.tight_layout()
-    plt.savefig('fig/fig5.jpg',dpi=300)
+    plt.savefig('fig/fig5.jpg',dpi=600)
 
 
 def tab_1_2():
@@ -488,7 +492,7 @@ def tab_3():
         abs_dependences = field_attr_list[field]['abs_dependence']
 
         num = len(levels)
-        print num
+        # print num
 
         mean_level,median_level,max_level = np.mean(levels),np.median(levels),np.max(levels)
         mean_depth,median_depth,max_depth = np.mean(depths),np.median(depths),np.max(depths)
@@ -529,8 +533,8 @@ if __name__ == '__main__':
 
     # fig4()
 
-    # fig5()
+    fig5()
 
-    tab_1_2()
+    # tab_1_2()
 
-    tab_3()
+    # tab_3()

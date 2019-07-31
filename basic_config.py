@@ -116,8 +116,8 @@ def plot_heat_scatter(xs,ys,ax,fig):
             zs.append(z)
 
     zs = np.array(zs)
-    print zs[:10],max(zs)
-    print len(xs),len(ys),len(zs)
+    # print zs[:10],max(zs)
+    # print len(xs),len(ys),len(zs)
     norm = mpl.colors.LogNorm(vmin=min(zs),vmax=max(zs))
 
     ccs = [colors.to_rgba(color_sequence[0]),colors.to_rgba(color_sequence[2]),colors.to_rgba(c='y')]
