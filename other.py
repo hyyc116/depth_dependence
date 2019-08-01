@@ -528,13 +528,16 @@ def tab_3():
 
 
 
+
+
 if __name__ == '__main__':
     # fig3()
 
     # fig4()
 
-    fig5()
+    # fig5()
 
     # tab_1_2()
 
-    # tab_3()
+    tab_3()
+    
