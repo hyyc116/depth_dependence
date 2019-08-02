@@ -236,6 +236,8 @@ def fig4():
     plot_box_relations([bin_levels(level) for level in levels],absolute_depths,'level','absolute depth\n(a)',level_labels,ax=axes[0,0])
     axes[0,0].set_xscale('log')
 
+    axes[0,0].set_aspect('equal')
+
     plot_box_relations([bin_levels(level) for level in levels],depths,'level','relative depth\n(b)',level_labels,ax=axes[0,1])
     axes[0,1].set_xlim(-0.5,16)
 
@@ -531,9 +533,9 @@ def tab_3():
 
 
 if __name__ == '__main__':
-    # fig3()
+    fig3()
 
-    fig4()
+    # fig4()
 
     # fig5()
 
