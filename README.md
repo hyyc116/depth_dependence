@@ -17,19 +17,19 @@ relative dependence| | | | |1.00|
 #### TABLE 3
 | |BHS|LES|MCS|PSE|SSH|
 |:---:|:---:|:---:|:---:|:---:|:---:|
-|No. of Pub|332143.00|84775.00|12573.00|168617.00|32266.00|
-|Mean Level|217.67|201.58|209.61|218.59|206.57|
-|Median Level|151.00|144.00|144.00|149.00|150.00|
-|Max. Level|64246.00|27889.00|13709.00|64584.00|14229.00|
-|Mean absolute depth|663.59|646.28|496.08|841.01|484.42|
-|Median absolute depth|359.00|391.00|286.00|440.00|281.00|
-|Max. absolute depth|214865.00|116339.00|38815.00|406463.00|50893.00|
-|Mean relative depth|2.67|2.96|2.21|3.30|2.10|
-|Median relative depth|2.28|2.58|1.85|2.78|1.79|
-|Max. relative depth|25.27|20.50|17.15|23.14|13.51|
-|Mean absolute dependence|540.29|502.73|284.29|600.90|439.91|
-|Median absolute dependence|401.00|377.00|194.00|399.00|315.00|
-|Max. absolute dependence|32654.00|18301.00|7766.00|53589.00|13198.00|
-|Mean relvative dependence|2.71|2.74|1.54|2.91|2.24|
-|Median relvative dependence|2.40|2.35|1.22|2.38|1.92|
-|Max. relvative dependence|28.59|26.53|16.84|29.50|17.57|
+|No. of Pub|332143.0|84775.0|12573.0|168617.0|32266.0|
+|Mean Level|217.7|201.6|209.6|218.6|206.6|
+|Median Level|151.0|144.0|144.0|149.0|150.0|
+|Max. Level|64246.0|27889.0|13709.0|64584.0|14229.0|
+|Mean absolute depth|663.6|646.3|496.1|841.0|484.4|
+|Median absolute depth|359.0|391.0|286.0|440.0|281.0|
+|Max. absolute depth|214865.0|116339.0|38815.0|406463.0|50893.0|
+|Mean relative depth|2.7|3.0|2.2|3.3|2.1|
+|Median relative depth|2.3|2.6|1.9|2.8|1.8|
+|Max. relative depth|25.3|20.5|17.1|23.1|13.5|
+|Mean absolute dependence|540.3|502.7|284.3|600.9|439.9|
+|Median absolute dependence|401.0|377.0|194.0|399.0|315.0|
+|Max. absolute dependence|32654.0|18301.0|7766.0|53589.0|13198.0|
+|Mean relvative dependence|2.7|2.7|1.5|2.9|2.2|
+|Median relvative dependence|2.4|2.3|1.2|2.4|1.9|
+|Max. relvative dependence|28.6|26.5|16.8|29.5|17.6|

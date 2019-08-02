@@ -514,7 +514,7 @@ def tab_3():
 
     for line in data[1:]:
 
-        lines.append('|'+line[0]+'|'+'|'.join(['{:.2f}'.format(float(l)) for l in line[1:]])+'|')
+        lines.append('|'+line[0]+'|'+'|'.join(['{:.1f}'.format(float(l)) for l in line[1:]])+'|')
 
     # print lines
 
@@ -533,11 +533,11 @@ def tab_3():
 if __name__ == '__main__':
     # fig3()
 
-    fig4()
+    # fig4()
 
     # fig5()
 
-    # tab_1_2()
+    tab_1_2()
 
-    # tab_3()
+    tab_3()
     
