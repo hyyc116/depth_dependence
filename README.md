@@ -21,9 +21,9 @@ relative dependence| | | | |1.00|
 |Mean Level|217.67|201.58|209.61|218.59|206.57|
 |Median Level|151.00|144.00|144.00|149.00|150.00|
 |Max. Level|64246.00|27889.00|13709.00|64584.00|14229.00|
-|Mean absolute depth|2.67|2.96|2.21|3.30|2.10|
-|Median absolute depth|2.28|2.58|1.85|2.78|1.79|
-|Max. absolute depth|25.27|20.50|17.15|23.14|13.51|
+|Mean absolute depth|663.59|646.28|496.08|841.01|484.42|
+|Median absolute depth|359.00|391.00|286.00|440.00|281.00|
+|Max. absolute depth|214865.00|116339.00|38815.00|406463.00|50893.00|
 |Mean relative depth|2.67|2.96|2.21|3.30|2.10|
 |Median relative depth|2.28|2.58|1.85|2.78|1.79|
 |Max. relative depth|25.27|20.50|17.15|23.14|13.51|
