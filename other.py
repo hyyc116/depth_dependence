@@ -245,11 +245,11 @@ def fig4():
     plot_box_relations([bin_levels(level) for level in levels],dependences,'level','relative dependence\n(d)',level_labels,ax=axes[1,1])
     axes[1,1].set_xlim(-0.5,16)
 
-    plot_box_relations([bin_dependence(depth) for depth in  depths],dependences,'relative depth','relative dependence\n(e)',depth_labels,ax=axes[2,0])
+    plot_box_relations([bin_dependence(depth) for depth in  depths],dependences,'relative depth','relative dependence\n(e)',depth_labels,ax=axes[2,1])
     axes[2,1].set_xlim(-0.5,16)
 
 
-    plot_box_relations([bin_abs_depth(depth) for depth in  absolute_depths],absolute_dependences,'abs depth','absolute dependence\n(f)',abs_depth_labels,ax=axes[2,1])
+    plot_box_relations([bin_abs_depth(depth) for depth in  absolute_depths],absolute_dependences,'abs depth','absolute dependence\n(f)',abs_depth_labels,ax=axes[2,0])
     axes[2,0].set_xscale('log')
 
 
@@ -533,11 +533,11 @@ def tab_3():
 if __name__ == '__main__':
     # fig3()
 
-    # fig4()
+    fig4()
 
     # fig5()
 
-    tab_1_2()
+    # tab_1_2()
 
-    tab_3()
+    # tab_3()
     
